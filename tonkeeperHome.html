@@ -30,7 +30,6 @@
             margin-bottom: 20px;
             padding: 20px;
             display: flex;
-            align-items: center;
             gap: 20px;
         }
         .feature-content {
@@ -80,7 +79,6 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             background: white;
             margin: 10px;
-            flex: 1;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -134,64 +132,73 @@
     <div class="container">
         <div class="feature">
             <div class="feature-content">
-                <h2>What is Tonkeeper Battery?</h2>
-                <p>Tonkeeper Battery is a revolutionary new feature that simplifies cryptocurrency transactions by eliminating the need for native coins to pay for gas fees. Now in public beta and available on all mobile platforms, Tonkeeper Battery allows you to get and use stablecoins or NFTs without acquiring native coins for gas.</p>
+                <h2>🔋 What is Tonkeeper Battery?</h2>
+                <p id="intro-text">🔋 Tonkeeper Battery is a revolutionary new feature that simplifies cryptocurrency transactions by eliminating the need for native coins to pay for gas fees. Now in public beta and available on all mobile platforms, Tonkeeper Battery allows you to get and use stablecoins or NFTs without acquiring native coins for gas.</p>
             </div>
             <div class="carousel">
-                <img src="battery_concept1.jpg" alt="Tonkeeper Battery Concept 1" class="active">
-                <img src="battery_concept2.jpg" alt="Tonkeeper Battery Concept 2">
-                <img src="battery_concept3.jpg" alt="Tonkeeper Battery Concept 3">
-                <img src="battery_concept4.jpg" alt="Tonkeeper Battery Concept 3">
+                <img src="static/" alt="Tonkeeper Battery Concept 1" class="active" data-intro="Tonkeeper Battery is a revolutionary new feature that simplifies cryptocurrency transactions by eliminating the need for native coins to pay for gas fees. Now in public beta and available on all mobile platforms, Tonkeeper Battery allows you to get and use stablecoins or NFTs without acquiring native coins for gas.">
+                <img src="battery_concept2.jpg" alt="Tonkeeper Battery Concept 2" data-intro="Top up your battery easily using in-app purchases or crypto. Send stablecoins or TON to a special address, and your account will be charged automatically. Enjoy seamless transactions without the need to visit exchanges.">
+                <img src="battery_concept3.jpg" alt="Tonkeeper Battery Concept 3" data-intro="Experience faster and more convenient transactions with Tonkeeper Battery.">
+                <img src="battery_concept4.jpg" alt="Tonkeeper Battery Concept 4" data-intro="Tonkeeper Battery is now in public beta and available on all mobile platforms.">
                 <div class="arrow left" onclick="prevSlide()">&#10094;</div>
                 <div class="arrow right" onclick="nextSlide()">&#10095;</div>
             </div>
         </div>
         <div class="feature-container">
             <div class="feature-card" onclick="toggleDetails(this)">
-                <h2>Gasless Payments and Swaps</h2>
+                <h2>🔋 Gasless Payments and Swaps</h2>
                 <p>Make payments and swaps without gas fees.</p>
                 <div class="details">
                     <p>With Tonkeeper Battery, you can make payments and swaps for USDT, Notcoin, and other tokens without worrying about gas fees. This makes transactions faster and more convenient.</p>
                     <div class="graphic">
-                        <img src="gasless_payments.png" alt="Gasless Payments">
+                        <img src="payments.png" alt="Gasless Payments">
                     </div>
                 </div>
             </div>
             <div class="feature-card" onclick="toggleDetails(this)">
-                <h2>NFT Transfers</h2>
+                <h2>🔋 NFT Transfers</h2>
                 <p>Effortless NFT transfers without fees.</p>
                 <div class="details">
                     <p>Transfer NFTs effortlessly without needing to acquire native coins for transaction fees. Tonkeeper Battery covers your fees automatically, making NFT transfers simple and hassle-free.</p>
                     <div class="graphic">
-                        <img src="nft_transfers.png" alt="NFT Transfers">
+                        <img src="nft.jpg" alt="NFT Transfers">
                     </div>
                 </div>
             </div>
             <div class="feature-card" onclick="toggleDetails(this)">
-                <h2>Easy Funding</h2>
+                <h2>🔋 Easy Funding</h2>
                 <p>Top up with in-app purchases or crypto.</p>
                 <div class="details">
                     <p>Top up your battery easily using in-app purchases or crypto. Send stablecoins or TON to a special address, and your account will be charged automatically. Enjoy seamless transactions without the need to visit exchanges.</p>
                     <div class="graphic">
-                        <img src="easy_funding.png" alt="Easy Funding">
+                        <img src="battery_concept2.jpg" alt="Easy Funding">
                     </div>
+                </div>
+            </div>
+            <div class="feature-card" onclick="toggleDetails(this)">
+                <h2>🔋 More Information</h2>
+                <p>For the current Information about TonKeeper battery</p>
+                <div class="details">
+                    <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="tonkeeper_news/86" data-width="100%"></script>
                 </div>
             </div>
         </div>
     </div>
     <footer>
-        <p>&copy; 2024 Tonkeeper. All rights reserved.</p>
+        <p>&copy; 🔋 2024 Tonkeeper. All rights reserved.</p>
     </footer>
     <script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.carousel img');
         const totalSlides = slides.length;
+        const introText = document.getElementById('intro-text');
 
         function showSlide(index) {
             slides.forEach((slide, i) => {
                 slide.classList.remove('active');
                 if (i === index) {
                     slide.classList.add('active');
+                    introText.textContent = slide.getAttribute('data-intro');
                 }
             });
         }
@@ -206,13 +213,9 @@
             showSlide(currentSlide);
         }
 
-        setInterval(nextSlide, 5000);
+        setInterval(nextSlide, 10000);
 
         function toggleDetails(card) {
-            const expandedCard = document.querySelector('.feature-card.expanded');
-            if (expandedCard && expandedCard !== card) {
-                expandedCard.classList.remove('expanded');
-            }
             card.classList.toggle('expanded');
         }
     </script>
