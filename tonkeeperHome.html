@@ -1,168 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tonkeeper Battery</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* Reset some default styles */
-    body, h1, h2, h3, h4, p, ul, li { margin: 0; padding: 0; }
-    body { font-family: 'Open Sans', sans-serif; }
-
-    /* General styles */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-
-    h1 { font-size: 36px; font-weight: 700; margin-bottom: 20px; }
-    h2 { font-size: 24px; font-weight: 600; margin-bottom: 16px; }
-    h3 { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
-    p { margin-bottom: 16px; }
-
-    /* Header */
-    header {
-      background-color: #333;
-      color: #fff;
-      padding: 20px;
-    }
-
-    header nav ul {
-      list-style-type: none;
-      display: flex;
-      justify-content: center;
-    }
-
-    header nav ul li {
-      margin: 0 10px;
-    }
-
-    header nav ul li a {
-      color: #fff;
-      text-decoration: none;
-    }
-
-    /* Battery section */
-    .battery-section {
-      display: flex;
-      align-items: center;
-      margin-bottom: 40px;
-    }
-
-    .battery-image {
-      flex: 0 0 300px;
-      margin-right: 40px;
-    }
-
-    .battery-image img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* Use cases section */
-    .use-case {
-      display: flex;
-      align-items: center;
-      margin-bottom: 40px;
-    }
-
-    .use-case-image {
-      flex: 0 0 200px;
-      margin-right: 40px;
-    }
-
-    .use-case-image img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* Media queries for responsive design */
-    @media (max-width: 768px) {
-      .battery-section, .use-case {
-        flex-direction: column;
-      }
-
-      .battery-image, .use-case-image {
-        margin-right: 0;
-        margin-bottom: 20px;
-      }
-    }
-
-    /* Footer */
-    footer {
-      background-color: #f5f5f5;
-      padding: 20px;
-      text-align: center;
-      font-size: 14px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tonkeeper Battery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #007acc;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .feature {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .feature-content {
+            flex: 1;
+        }
+        .feature h2 {
+            color: #007acc;
+        }
+        .carousel {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .carousel img {
+            width: 100%;
+            height: auto;
+            display: none;
+        }
+        .carousel img.active {
+            display: block;
+        }
+        .carousel .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            user-select: none; /* Prevent text selection on double click */
+        }
+        .carousel .arrow.left {
+            left: 10px;
+        }
+        .carousel .arrow.right {
+            right: 10px;
+        }
+        .feature-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background: white;
+            margin: 10px;
+            flex: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .feature-card h2 {
+            color: #007acc;
+        }
+        .feature-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .feature-card .details {
+            display: none;
+        }
+        .feature-card.expanded .details {
+            display: block;
+        }
+        .feature-card .graphic img {
+            max-width: 60%;
+            margin: 10px auto;
+            border-radius: 10px;
+        }
+        @media (max-width: 768px) {
+            .feature-container {
+                display: block;
+            }
+            .feature-container .feature-card {
+                flex: 0 0 100%;
+                margin-bottom: 20px;
+            }
+            .feature {
+                flex-direction: column;
+                text-align: center;
+            }
+            .graphic img {
+                max-width: 100%;
+            }
+        }
+        footer {
+            background-color: #007acc;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#">FAQ</a></li>
-        <li><a href="#">Support</a></li>
-        <li><a href="#">Documentation</a></li>
-        <li><a href="#">Bug Bounty</a></li>
-        <li><a href="#">GitHub</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <div class="container">
-    <h1>Introducing Tonkeeper Battery</h1>
-
-    <div class="battery-section">
-      <div class="battery-image">
-        <img src="battery.png" alt="Tonkeeper Battery">
-      </div>
-      <div class="battery-content">
-        <h2>Effortless Transactions, No Gas Fees</h2>
-        <p>Tonkeeper Battery is a revolutionary new feature that eliminates the need to acquire and hold TON cryptocurrency to pay for gas fees on the TON blockchain.</p>
-        <p>With Tonkeeper Battery, you can receive, send, and swap tokens like stablecoins, Notcoin, and NFTs without having to worry about gas fees. The battery automatically covers the transaction costs, allowing you to focus on your crypto activities.</p>
-      </div>
+    <header>
+        <h1>🔋 Tonkeeper Battery</h1>
+    </header>
+    <div class="container">
+        <div class="feature">
+            <div class="feature-content">
+                <h2>What is Tonkeeper Battery?</h2>
+                <p>Tonkeeper Battery is a revolutionary new feature that simplifies cryptocurrency transactions by eliminating the need for native coins to pay for gas fees. Now in public beta and available on all mobile platforms, Tonkeeper Battery allows you to get and use stablecoins or NFTs without acquiring native coins for gas.</p>
+            </div>
+            <div class="carousel">
+                <img src="battery_concept1.jpg" alt="Tonkeeper Battery Concept 1" class="active">
+                <img src="battery_concept2.jpg" alt="Tonkeeper Battery Concept 2">
+                <img src="battery_concept3.jpg" alt="Tonkeeper Battery Concept 3">
+                <img src="battery_concept4.jpg" alt="Tonkeeper Battery Concept 3">
+                <div class="arrow left" onclick="prevSlide()">&#10094;</div>
+                <div class="arrow right" onclick="nextSlide()">&#10095;</div>
+            </div>
+        </div>
+        <div class="feature-container">
+            <div class="feature-card" onclick="toggleDetails(this)">
+                <h2>Gasless Payments and Swaps</h2>
+                <p>Make payments and swaps without gas fees.</p>
+                <div class="details">
+                    <p>With Tonkeeper Battery, you can make payments and swaps for USDT, Notcoin, and other tokens without worrying about gas fees. This makes transactions faster and more convenient.</p>
+                    <div class="graphic">
+                        <img src="gasless_payments.png" alt="Gasless Payments">
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" onclick="toggleDetails(this)">
+                <h2>NFT Transfers</h2>
+                <p>Effortless NFT transfers without fees.</p>
+                <div class="details">
+                    <p>Transfer NFTs effortlessly without needing to acquire native coins for transaction fees. Tonkeeper Battery covers your fees automatically, making NFT transfers simple and hassle-free.</p>
+                    <div class="graphic">
+                        <img src="nft_transfers.png" alt="NFT Transfers">
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card" onclick="toggleDetails(this)">
+                <h2>Easy Funding</h2>
+                <p>Top up with in-app purchases or crypto.</p>
+                <div class="details">
+                    <p>Top up your battery easily using in-app purchases or crypto. Send stablecoins or TON to a special address, and your account will be charged automatically. Enjoy seamless transactions without the need to visit exchanges.</p>
+                    <div class="graphic">
+                        <img src="easy_funding.png" alt="Easy Funding">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <footer>
+        <p>&copy; 2024 Tonkeeper. All rights reserved.</p>
+    </footer>
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel img');
+        const totalSlides = slides.length;
 
-    <h2>Key Use Cases</h2>
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+        }
 
-    <div class="use-case">
-      <div class="use-case-image">
-        <img src="gasless-payments.png" alt="Gasless Payments">
-      </div>
-      <div class="use-case-content">
-        <h3>Gasless Payments and Swaps</h3>
-        <p>Tonkeeper Battery enables you to make payments and swaps for USDT, Notcoin, and other tokens without the need to purchase TON cryptocurrency. The battery covers the gas fees, so you can transact seamlessly.</p>
-      </div>
-    </div>
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
 
-    <div class="use-case">
-      <div class="use-case-image">
-        <img src="nft-transfers.png" alt="NFT Transfers">
-      </div>
-      <div class="use-case-content">
-        <h3>Effortless NFT Transfers</h3>
-        <p>With Tonkeeper Battery, you can transfer your NFTs without worrying about the gas fees. The battery automatically handles the transaction costs, making it a breeze to move your digital collectibles.</p>
-      </div>
-    </div>
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
 
-    <div class="use-case">
-      <div class="use-case-image">
-        <img src="funding.png" alt="Funding">
-      </div>
-      <div class="use-case-content">
-        <h3>Funding Options</h3>
-        <p>You can easily top up your Tonkeeper Battery using in-app purchases or by sending TON or supported stablecoins (currently jUSDT) to a special battery.ton address. This ensures your battery is always charged and ready for your transactions.</p>
-      </div>
-    </div>
-  </div>
+        setInterval(nextSlide, 5000);
 
-  <footer>
-    <p>&copy; 2024 Tonkeeper. All rights reserved.</p>
-  </footer>
+        function toggleDetails(card) {
+            const expandedCard = document.querySelector('.feature-card.expanded');
+            if (expandedCard && expandedCard !== card) {
+                expandedCard.classList.remove('expanded');
+            }
+            card.classList.toggle('expanded');
+        }
+    </script>
 </body>
 </html>

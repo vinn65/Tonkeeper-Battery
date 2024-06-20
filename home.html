@@ -29,17 +29,47 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             margin-bottom: 20px;
             padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .feature-content {
+            flex: 1;
         }
         .feature h2 {
             color: #007acc;
         }
-        .graphic {
-            text-align: center;
-            margin: 20px 0;
+        .carousel {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 10px;
         }
-        .graphic img {
-            max-width: 50%;
-            height: 50;
+        .carousel img {
+            width: 100%;
+            height: auto;
+            display: none;
+        }
+        .carousel img.active {
+            display: block;
+        }
+        .carousel .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            user-select: none; /* Prevent text selection on double click */
+        }
+        .carousel .arrow.left {
+            left: 10px;
+        }
+        .carousel .arrow.right {
+            right: 10px;
         }
         .feature-card {
             display: flex;
@@ -68,6 +98,11 @@
         .feature-card.expanded .details {
             display: block;
         }
+        .feature-card .graphic img {
+            max-width: 60%;
+            margin: 10px auto;
+            border-radius: 10px;
+        }
         @media (max-width: 768px) {
             .feature-container {
                 display: block;
@@ -75,6 +110,13 @@
             .feature-container .feature-card {
                 flex: 0 0 100%;
                 margin-bottom: 20px;
+            }
+            .feature {
+                flex-direction: column;
+                text-align: center;
+            }
+            .graphic img {
+                max-width: 100%;
             }
         }
         footer {
@@ -91,10 +133,17 @@
     </header>
     <div class="container">
         <div class="feature">
-            <h2>What is Tonkeeper Battery?</h2>
-            <p>Tonkeeper Battery is a revolutionary new feature that simplifies cryptocurrency transactions by eliminating the need for native coins to pay for gas fees. Now in public beta and available on all mobile platforms, Tonkeeper Battery allows you to get and use stablecoins or NFTs without acquiring native coins for gas.</p>
-            <div class="graphic">
-                <img src="img-1.png" alt="Tonkeeper Battery Concept">
+            <div class="feature-content">
+                <h2>What is Tonkeeper Battery?</h2>
+                <p id="intro-text">Tonkeeper Battery is a revolutionary new feature that simplifies cryptocurrency transactions by eliminating the need for native coins to pay for gas fees. Now in public beta and available on all mobile platforms, Tonkeeper Battery allows you to get and use stablecoins or NFTs without acquiring native coins for gas.</p>
+            </div>
+            <div class="carousel">
+                <img src="battery_concept1.jpg" alt="Tonkeeper Battery Concept 1" class="active" data-intro="Tonkeeper Battery simplifies transactions by eliminating the need for native coins to pay for gas fees.">
+                <img src="battery_concept2.jpg" alt="Tonkeeper Battery Concept 2" data-intro="Get and use stablecoins or NFTs without acquiring native coins for gas.">
+                <img src="battery_concept3.jpg" alt="Tonkeeper Battery Concept 3" data-intro="Experience faster and more convenient transactions with Tonkeeper Battery.">
+                <img src="battery_concept4.jpg" alt="Tonkeeper Battery Concept 4" data-intro="Tonkeeper Battery is now in public beta and available on all mobile platforms.">
+                <div class="arrow left" onclick="prevSlide()">&#10094;</div>
+                <div class="arrow right" onclick="nextSlide()">&#10095;</div>
             </div>
         </div>
         <div class="feature-container">
@@ -104,7 +153,7 @@
                 <div class="details">
                     <p>With Tonkeeper Battery, you can make payments and swaps for USDT, Notcoin, and other tokens without worrying about gas fees. This makes transactions faster and more convenient.</p>
                     <div class="graphic">
-                        <img src="img-1.png" alt="Gasless Payments">
+                        <img src="payments.png" alt="Gasless Payments">
                     </div>
                 </div>
             </div>
@@ -114,7 +163,7 @@
                 <div class="details">
                     <p>Transfer NFTs effortlessly without needing to acquire native coins for transaction fees. Tonkeeper Battery covers your fees automatically, making NFT transfers simple and hassle-free.</p>
                     <div class="graphic">
-                        <img src="nft_transfers.png" alt="NFT Transfers">
+                        <img src="nft.jpg" alt="NFT Transfers">
                     </div>
                 </div>
             </div>
@@ -124,25 +173,64 @@
                 <div class="details">
                     <p>Top up your battery easily using in-app purchases or crypto. Send stablecoins or TON to a special address, and your account will be charged automatically. Enjoy seamless transactions without the need to visit exchanges.</p>
                     <div class="graphic">
-                        <img src="easy_funding.png" alt="Easy Funding">
+                        <img src="battery_concept2.jpg" alt="Easy Funding">
                     </div>
                 </div>
             </div>
+            <div class="feature-card" onclick="toggleDetails(this)">
+                <h2>More Information</h2>
+                <p>For the current Information about TonKeeper battery</p>
+               
+            </div>
+        </div>
+        <div class="feature">
+            <div class="feature-content">
+                <div class="details">
+                    <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="tonkeeper_news/86" data-width="50%"></script>
+                </div>
+            </div>
+           
         </div>
     </div>
     <footer>
         <p>&copy; 2024 Tonkeeper. All rights reserved.</p>
     </footer>
     <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel img');
+        const totalSlides = slides.length;
+        const introText = document.getElementById('intro-text');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                    introText.textContent = slide.getAttribute('data-intro');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        setInterval(nextSlide, 10000);
+
         function toggleDetails(card) {
-            // Collapse any expanded card
             const expandedCard = document.querySelector('.feature-card.expanded');
             if (expandedCard && expandedCard !== card) {
                 expandedCard.classList.remove('expanded');
             }
-            // Toggle the clicked card
             card.classList.toggle('expanded');
         }
+    
     </script>
 </body>
 </html>
